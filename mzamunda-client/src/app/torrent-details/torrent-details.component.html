@@ -1,0 +1,39 @@
+<mat-card *ngIf="torrent" class="torrent-card">
+	<div class="scrollable-content">
+		<mat-card-header>
+		  <div mat-card-avatar class="torrent-card-header-image">
+		  	<button mat-button (click)="close()" class="back-button">
+		  		<i class="material-icons">arrow_back</i>
+		  	</button>
+		  </div>
+		  <mat-card-title>{{torrent.name}}</mat-card-title>
+		  <mat-card-subtitle>Торент</mat-card-subtitle>
+		</mat-card-header>
+		<img mat-card-image src="{{torrent.poster}}" alt="Poster {{torrent.name}}">
+		<mat-card-content>
+		  <p *ngFor="let description of torrent.description">
+		    {{description}}
+		  </p>
+		  <p *ngFor="let imgSrc of torrent.images" class="image-holder">
+		  	<img src="{{imgSrc}}">
+		  </p>
+		</mat-card-content>
+	</div>
+	<mat-card-actions fxLayout="row" id="torrent_actions">
+	  <button mat-button fxFlex="1 0 0" [disabled]="downloading" (click)="download(torrent.download)">
+	  	<i class="material-icons">file_download</i>
+	  </button>
+
+	  <a mat-button fxFlex="1 0 0" *ngFor="let subsUrl of torrent.subtitles" target="_blank" href="{{subsUrl}}">
+	  	<i class="material-icons">subtitles</i>
+	  </a>
+
+	  <a mat-button fxFlex="1 0 0" target="_blank" href="{{torrent.url}}">
+	  	<i class="material-icons">open_in_new</i>
+	  </a>
+
+	  <button mat-button fxFlex="1 0 0" (click)="close()">
+	  	<i class="material-icons">close</i>
+	  </button>
+	</mat-card-actions>
+</mat-card>

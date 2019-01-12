@@ -1,0 +1,47 @@
+/*.torrent-card-header-image {
+  background-image: url('/assets/img/parrot-avatar.jpg');
+  background-size: cover;
+}*/
+
+.torrent-card {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 5;
+  /*height: 100vh;  Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100); /* For mobile (--vh variable is initialized in index.html) */
+  width: 100%;
+	box-sizing: border-box;
+}
+
+[mat-card-avatar] button.back-button {
+  min-width: unset;
+  padding: 0 5px;
+}
+
+p.image-holder {
+	text-align: center;
+}
+p.image-holder img {
+	max-width: 100%;
+}
+
+#torrent_actions {
+	width: 100%;
+	margin-left: 0px;
+	margin-right: 0px;
+	left: 0;
+	padding-top: 0px;
+	position: fixed;
+  bottom: 16px;
+}
+
+.scrollable-content {
+	overflow: auto;
+	overflow-x: hidden;
+	height: calc(100% - 35px);
+	scrollbar-width: none; /* Hide scroll bar in firefox desktop */
+}
+.scrollable-content::-webkit-scrollbar { 
+    display: none; 
+}

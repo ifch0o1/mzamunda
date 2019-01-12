@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '@angular/material/prebuilt-themes/pink-bluegrey.css';
+/*@import '@angular/material/prebuilt-themes/deeppurple-amber.css';*/
+
+
+body {
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+	background: #303030;
+	color: #fafafa;
+
+	/*background: #fafafa;*/
+	/*color: #303030;*/
+}

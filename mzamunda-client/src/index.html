@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Замунда за тела</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <script>
+  	// First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+  	let vh = window.innerHeight * 0.01;
+  	// Then we set the value in the --vh custom property to the root of the document
+  	document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+  	// We listen to the resize event
+  	window.addEventListener('resize', () => {
+  	  // We execute the same script as before
+  	  let vh = window.innerHeight * 0.01;
+  	  document.documentElement.style.setProperty('--vh', `${vh}px`);
+  	});
+  </script>
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>

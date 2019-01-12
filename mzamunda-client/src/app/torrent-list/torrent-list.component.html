@@ -1,0 +1,31 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+<div class="list-container">
+	<mat-action-list dense>
+	  <button mat-list-item (click)="onTorrentClick(torrent)" *ngFor="let torrent of torrents">
+	  	<mat-icon matListIcon [ngStyle]="{'color': types[torrent.type].color}">
+	  		{{types[torrent.type].icon}}
+	  	</mat-icon>
+	    <h3 matLine> {{torrent.name}} </h3>
+	    <p matLine class="text-overflow-unset">
+	      <span>
+	      	<!-- <mat-icon class="icon-inline-text">
+	      		storage
+	      	</mat-icon> -->
+	      	<b>{{torrent.size}}</b>
+	    	</span>
+	      <span *ngIf="torrent.rating > 0">
+	      	<mat-icon class="rating-icon icon-inline-text">
+	      		star_rate
+	      	</mat-icon>
+	      	{{torrent.rating}}
+	      </span>
+	      <span *ngIf="torrent.seeds">
+	      	<mat-icon class="icon-inline-text">
+	      		arrow_upward
+	      	</mat-icon>
+	      	{{torrent.seeds}}
+	      </span>
+	    </p>
+	  </button>
+	</mat-action-list>
+</div>

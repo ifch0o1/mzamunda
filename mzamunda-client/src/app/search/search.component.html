@@ -1,0 +1,8 @@
+<form fxFlex="1 1 0" #searchForm="ngForm" (ngSubmit)="onSubmit(searchForm)">
+	<mat-form-field class="search-form-field" [floatLabel]="'never'">
+	  <input matInput [type]="'search'" placeholder="Търси" [(ngModel)]="q" name="q">
+	  <button mat-button *ngIf="q" matSuffix mat-icon-button aria-label="Търси" (click)="search(q)" type="submit">
+	    <mat-icon>search</mat-icon>
+	  </button>
+	</mat-form-field>
+</form>

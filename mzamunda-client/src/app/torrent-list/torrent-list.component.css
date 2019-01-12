@@ -1,0 +1,29 @@
+.torrent-list-icon {
+  transform: scale(2);
+}
+
+.list-container {
+	max-width: 100%
+}
+
+[matLine].text-overflow-unset {
+	text-overflow: unset !important;
+}
+
+.icon-inline-text {
+	font-size: inherit;
+	width: 12px;
+	height: auto;
+}
+
+.rating-icon {
+	color: yellow;
+}
+
+mat-icon[matListIcon] {
+	-webkit-transform: scale(2) rotate(-2deg);
+	   -moz-transform: scale(2) rotate(-2deg);
+	    -ms-transform: scale(2) rotate(-2deg);
+	     -o-transform: scale(2) rotate(-2deg);
+	        transform: scale(2) rotate(-2deg);
+}
