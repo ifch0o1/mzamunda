@@ -32,13 +32,13 @@ export class DashboardComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   showTorrents(torrents: TorrentModel[], pagination?: Pagination): void {
-  	this.torrents = torrents;
+    this.loadingTorrents = false;
+    this.torrents = torrents;
     if (pagination && pagination.pagesCount) {
       this.pagination = pagination;
     } else {
       this.pagination = {pagesCount: 0, torrentsCount: 0};
     }
-    this.loadingTorrents = false;
   }
 
   onPageChange($event: PageEvent):void {
@@ -57,7 +57,7 @@ export class DashboardComponent {
     this.loadingTorrentDescription = true;
     this.torrentService.getTorrentDetails(torrent.url).subscribe(
       (torrentDetails) => {
-        console.log(torrentDetails);
+        $('body').css('overflow', 'hidden');
         this.selectedTorrent = torrentDetails;
         this.loadingTorrentDescription = false;
       },

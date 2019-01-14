@@ -17,6 +17,7 @@ export class TorrentDetailsComponent implements OnInit {
 
 	close(): void {
 		this.torrent = undefined;
+		$('body').css('overflow', 'auto');
 	}
 
 	download(url): void {
