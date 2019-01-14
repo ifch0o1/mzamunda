@@ -3,8 +3,7 @@ var uri = (function() {
 
 	return {
 		getFileName: function(uriStr, cutExtension) {
-            if (!uriStr) throw new ReferenceError('uriStr is not defined');
-
+    if (!uriStr) throw new ReferenceError('uriStr is not defined');
 			var filename = uriStr.split('/').pop();
 
 			if (cutExtension) {

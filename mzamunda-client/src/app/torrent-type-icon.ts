@@ -14,7 +14,7 @@ export class TorrentTypeIcon {
 	};
 	private generalSoft: TorrentIcon = {
 		icon: 'memory',
-		color: 'green'
+		color: 'limegreen'
 	};
 	private generalMusic: TorrentIcon = {
 		icon: 'volume_up',
@@ -33,7 +33,7 @@ export class TorrentTypeIcon {
 		movie: this.generalMovie,
 		moviehd: {
 			icon: 'high_quality',
-			color: 'green'
+			color: 'limegreen'
 		},
 		dvd: {
 			icon: 'disc_full',
@@ -41,7 +41,7 @@ export class TorrentTypeIcon {
 		},
 		blueray: {
 			icon: 'disc_full',
-			color: 'darkblue'
+			color: 'lightslategrey'
 		},
 		anime: Object.assign({}, this.generalMovie, { color: 'bisque' }),
 		vidhd: {
@@ -50,14 +50,14 @@ export class TorrentTypeIcon {
 		},
 		"3d": {
 			icon: '3d_rotation',
-			color: 'blue'
+			color: 'deepskyblue'
 		},
 		science: {
 			icon: 'camera_roll',
 			color: 'brown'
 		},
 		movierus: Object.assign({}, this.generalMovie, { color: 'red' }),
-		moviebg: Object.assign({}, this.generalMovie, { color: 'green' }),
+		moviebg: Object.assign({}, this.generalMovie, { color: 'limegreen' }),
 
 		tv: {
 			icon: 'tv',
@@ -65,7 +65,7 @@ export class TorrentTypeIcon {
 		},
 		tvhd: {
 			icon: 'tv',
-			color: 'green'
+			color: 'limegreen'
 		},
 		clips: {
 			icon: 'play_arrow',
@@ -74,8 +74,8 @@ export class TorrentTypeIcon {
 
 		pcrip: this.generalGame,
 		pciso: Object.assign({}, this.generalGame, { color: 'red' }),
-		ps3: Object.assign({}, this.generalGame, { color: 'blue' }),
-		xbox: Object.assign({}, this.generalGame, { color: 'green' }),
+		ps3: Object.assign({}, this.generalGame, { color: 'deepskyblue' }),
+		xbox: Object.assign({}, this.generalGame, { color: 'limegreen' }),
 
 		mac: {
 			icon: 'apple',
@@ -92,10 +92,10 @@ export class TorrentTypeIcon {
 		miscsoft: this.generalSoft,
 
 		music: this.generalMusic,
-		flac: Object.assign({}, this.generalMusic, { color: 'green' }),
-		dts: Object.assign({}, this.generalMusic, { color: 'green' }),
-		musicdvd: Object.assign({}, this.generalMusic, { color: 'green' }),
-		"24bit": Object.assign({}, this.generalMusic, { color: 'green' }),
+		flac: Object.assign({}, this.generalMusic, { color: 'limegreen' }),
+		dts: Object.assign({}, this.generalMusic, { color: 'limegreen' }),
+		musicdvd: Object.assign({}, this.generalMusic, { color: 'limegreen' }),
+		"24bit": Object.assign({}, this.generalMusic, { color: 'limegreen' }),
 
 		porn: {
 			icon: 'play_circle_outline',
@@ -125,7 +125,7 @@ export class TorrentTypeIcon {
 	// getType(torrentTypeName: string): TorrentIcon {
 	// 	const generalMovie = {
 	// 	    icon: 'videocam',
-	// 	    color: 'blue'
+	// 	    color: 'deepskyblue'
 	// 	},
 	// 	    generalGame = {
 	// 	        icon: 'games',
@@ -133,7 +133,7 @@ export class TorrentTypeIcon {
 	// 	},
 	// 	    generalSoft = {
 	// 	        icon: 'memory',
-	// 	        color: 'green'
+	// 	        color: 'limegreen'
 	// 	},
 	// 	    generalMusic = {
 	// 	        icon: 'volume_up',

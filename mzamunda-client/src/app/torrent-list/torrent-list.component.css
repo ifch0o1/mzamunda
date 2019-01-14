@@ -27,3 +27,7 @@ mat-icon[matListIcon] {
 	     -o-transform: scale(2) rotate(-2deg);
 	        transform: scale(2) rotate(-2deg);
 }
+
+.mat-progress-spinner {
+	margin: 3em 0;
+}

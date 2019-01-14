@@ -25,7 +25,8 @@
 	  </button>
 
 	  <a mat-button fxFlex="1 0 0" *ngFor="let subsUrl of torrent.subtitles" target="_blank" href="{{subsUrl}}">
-	  	<i class="material-icons">subtitles</i>
+	  	<i *ngIf="subsUrl.indexOf('/en/') == -1" class="material-icons">subtitles</i>
+	  	<i *ngIf="subsUrl.indexOf('/en/') > 0" class="material-icons">closed_caption</i>
 	  </a>
 
 	  <a mat-button fxFlex="1 0 0" target="_blank" href="{{torrent.url}}">

@@ -1,12 +1,10 @@
 <div id="dash-holder">
   <app-search fxLayout="row"
-	(queryChange)="onQueryChange($event)"
-  (filteredBySearchTorrents)="showTorrents($event.torrents, $event.pagination)"></app-search>
+	(queryChange)="onQueryChange($event)"></app-search>
 
 	<mat-paginator *ngIf="pagination.pagesCount" 
 							[length]="pagination.torrentsCount"
-              [pageSize]="torrents.length"
-              [pageIndex]="1"
+              [pageSize]="torrentsCountPerPage"
               (page)="onPageChange($event)">
 	</mat-paginator>
 
@@ -19,5 +17,22 @@
 	>
   </app-torrent-list>
 
+  <mat-paginator *ngIf="pagination.pagesCount && !loadingTorrents" 
+              [length]="pagination.torrentsCount"
+              [pageSize]="torrentsCountPerPage"
+              (page)="onPageChange($event)">
+  </mat-paginator>
+
   <app-torrent-details [torrent]="selectedTorrent"></app-torrent-details>
+
+  <div 
+    *ngIf="loadingTorrentDescription" 
+    fxLayout="row" 
+    fxLayoutAlign="center" 
+    gdAlignColumns="center"
+
+    class="loading-holder"
+  >
+    <mat-spinner></mat-spinner>
+  </div>
 </div>

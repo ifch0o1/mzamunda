@@ -9,13 +9,9 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit { 
-	@Output() filteredBySearchTorrents = new EventEmitter<TorrentModel[]>();
   @Output() queryChange = new EventEmitter<string>();
 
   search(q: string): void {
-    this.torrentService.search(q, 1).subscribe(data => {
-      this.filteredBySearchTorrents.emit(data);
-    });
     this.queryChange.emit(q);
   }
 

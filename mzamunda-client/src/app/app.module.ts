@@ -20,8 +20,17 @@ import { SearchComponent } from './search/search.component';
 import { TorrentListComponent } from './torrent-list/torrent-list.component';
 import { HttpClientModule }    from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { TorrentDetailsComponent } from './torrent-details/torrent-details.component';
+
+import {MatPaginatorIntl} from '@angular/material';
+class MatPaginatorIntlCro extends MatPaginatorIntl {
+  itemsPerPageLabel: string = "Показани";
+  lastPageLabel: string = "Последна страница";
+  firstPageLabel: string = "Първа страница";
+  nextPageLabel: string = "Следваща страница";
+  previousPageLabel: string = "Предишна страница";
+}
 
 @NgModule({
   declarations: [
@@ -44,7 +53,13 @@ import { TorrentDetailsComponent } from './torrent-details/torrent-details.compo
     FormsModule,
     HttpClientModule
   ],
-  providers: [CookieService],
+  providers: [
+    CookieService,
+    {
+      provide: MatPaginatorIntl,
+      useClass: MatPaginatorIntlCro
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

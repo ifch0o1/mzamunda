@@ -1,6 +1,7 @@
 var request = require('request');
 var logger = require('../simple-logger');
 var os = require('os');
+var uri = require('../uri');
 
 var fileService = (function() {
 
@@ -15,8 +16,11 @@ var fileService = (function() {
             }
         };
         if (url.indexOf('.torrent')) {
-            resObj.header("content-type", "application/x-bittorrent");
+            resObj.header('Content-Type', 'application/x-bittorrent');
         }
+        var filename = uri.getFileName(url) || 'unnamed';
+        resObj.header('Content-Disposition', 'attachment; filename="'+filename+'"');
+
         
         request(options)
         .on('error', function(err) {

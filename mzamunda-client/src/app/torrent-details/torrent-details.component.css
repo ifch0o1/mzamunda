@@ -45,3 +45,8 @@ p.image-holder img {
 .scrollable-content::-webkit-scrollbar { 
     display: none; 
 }
+.mat-card-actions .mat-button, .mat-card-actions .mat-raised-button {
+  min-width: unset;
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+}

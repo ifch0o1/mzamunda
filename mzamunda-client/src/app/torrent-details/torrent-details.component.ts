@@ -22,8 +22,10 @@ export class TorrentDetailsComponent implements OnInit {
 	download(url): void {
 		let that = this;
 		that.downloading = true;
-		this.torrentService.getTorrentDownloadUrl(url).subscribe(data => {
-			let downloadHtml = $(data);
+		this.torrentService.getTorrentDownloadUrl(url).subscribe(html => {
+			// Remove all images from html to prevent jQuery to load them in the document.
+			html = html.replace(/<img\b[^>]*>/ig, '');
+			let downloadHtml = $(html);
 			let downloadTorrentFileUrl = downloadHtml.find("#svalqneto_zapochva > a").attr('href');
 			downloadTorrentFileUrl = globals.ZAMUNDA_HOST + "/" + downloadTorrentFileUrl;
 			that.downloadFile(globals.SERVER_URL + "/api/get/file?url=" +downloadTorrentFileUrl);
@@ -34,16 +36,10 @@ export class TorrentDetailsComponent implements OnInit {
 	downloadFile(url: string, fileName?: string, extension?: string): void {
 	    if (!fileName) fileName = 'torrentFile';
 	    if (!extension) extension = 'torrent';
-	    
 
 	    let link = document.createElement('a');
-	    link.download = fileName + '.' + extension.replace(/\./g, '');
+	    link.download = "";
 	    link.href = url;
-
-	    console.log(link);
-
-	    // return;
-
 	    let isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
 	    if (isChrome) {
 	        link.click();

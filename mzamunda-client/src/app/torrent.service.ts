@@ -32,12 +32,9 @@ export class TorrentService {
 	getTorrentDetails(torrentUrl: string): Observable<any> {
 		return new Observable(observer => {
 			this.getTorrentDetailsHTML(torrentUrl).subscribe(html => {
-				observer.next(null);
-				console.log(torrentUrl);
 				let detailsObject = this.parseTorrentDetailsHTML(html, torrentUrl);
 				if (detailsObject.error) {
-					console.log("Torrent Details error: ", detailsObject.error);
-				  observer.error();
+				  observer.error(detailsObject.error);
 				} else {
 				  observer.next(detailsObject);
 				}
@@ -101,7 +98,7 @@ export class TorrentService {
 	    }
 	    const $subtitlesDiv = $description.next();
 	    const $allAnchors = $subtitlesDiv.find('a');
-	    const urls: string[] = [];
+	    let urls: string[] = [];
 	    $allAnchors.each(function(i, el) {
 	        const href = $(el).attr('href');
 	        if (!href) return true; // continue
@@ -111,6 +108,9 @@ export class TorrentService {
 	            urls.push(href);
 	        }
 	    });
+	    if ($subtitlesDiv.find('.othersubs a[target="_blank"]').length) {
+      	urls.push($subtitlesDiv.find('.othersubs a[target="_blank"]').eq(0).attr('href'));
+      }
 	    return urls;
 	}
 
@@ -228,19 +228,22 @@ export class TorrentService {
       return {error: 'Този торрент не се поддържа.'};
     }
 
-    const detailsObject: any = {};
+    let detailsObject: any = {};
 
     html = html.replace(new RegExp('src=', 'g'), '_src=');
-    const $HTML = $(html);
+    let $HTML = $(html);
     if ($HTML.find('form[name="login"]').length > 0) {
       return {error: 'Не може да достъпите този торент като гост.'};
+    }
+    let $description = $HTML.find('#description');
+    if (!$description.length) {
+    	return {error: "Услугата неможе да се изпълни."}
     }
 
     detailsObject.name = this.getTorrentName($HTML);
     detailsObject.download = this.getTorrentGoDownloadUrl($HTML);
 
-    const $description = $HTML.find('#description');
-    const images = this.getImages($description);
+    let images = this.getImages($description);
     detailsObject.poster = images.shift();
     detailsObject.images = images;
     detailsObject.url = url;
