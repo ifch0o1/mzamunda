@@ -40,10 +40,10 @@ p.image-holder img {
 	overflow: auto;
 	overflow-x: hidden;
 	height: calc(100% - 35px);
-	scrollbar-width: none; /* Hide scroll bar in firefox desktop */
+	/*scrollbar-width: none;  Hide scroll bar in firefox desktop */
 }
 .scrollable-content::-webkit-scrollbar { 
-    display: none; 
+    /*display: none; */
 }
 .mat-card-actions .mat-button, .mat-card-actions .mat-raised-button {
   min-width: unset;
