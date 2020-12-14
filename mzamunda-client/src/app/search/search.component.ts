@@ -8,8 +8,10 @@ import { NgForm } from '@angular/forms';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit { 
+export class SearchComponent implements OnInit {
   @Output() queryChange = new EventEmitter<string>();
+
+  public q = ''
 
   search(q: string): void {
     this.queryChange.emit(q);

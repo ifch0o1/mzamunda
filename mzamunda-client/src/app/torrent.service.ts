@@ -17,16 +17,17 @@ export class TorrentService {
 	private torrentSearchUrl = this.globals.SERVER_URL + '/api/torrent/search';
 
 	getRecommended(): Observable<TorrentModel[]> {
-		return this.http.get<TorrentModel[]>(this.recomendedTorrentsUrl, {withCredentials: true});
+		console.log('eee')
+		return this.http.get<TorrentModel[]>(this.recomendedTorrentsUrl, { withCredentials: true });
 	}
 
 	search(str: string, page: number): Observable<any> {
-    str = str === 'emptysearch' ? '' : str;
-    str = encodeURIComponent(str);
-    return this.http.post(this.torrentSearchUrl, {
-        searchString: str,
-        page: page - 1
-    }, {withCredentials: true});
+		str = str === 'emptysearch' ? '' : str;
+		str = encodeURIComponent(str);
+		return this.http.post(this.torrentSearchUrl, {
+			searchString: str,
+			page: page - 1
+		}, { withCredentials: true });
 	}
 
 	getTorrentDetails(torrentUrl: string): Observable<any> {
@@ -34,9 +35,9 @@ export class TorrentService {
 			this.getTorrentDetailsHTML(torrentUrl).subscribe(html => {
 				let detailsObject = this.parseTorrentDetailsHTML(html, torrentUrl);
 				if (detailsObject.error) {
-				  observer.error(detailsObject.error);
+					observer.error(detailsObject.error);
 				} else {
-				  observer.next(detailsObject);
+					observer.next(detailsObject);
 				}
 				observer.complete();
 			});
@@ -44,15 +45,15 @@ export class TorrentService {
 	}
 
 	getTorrentDownloadUrl(torrentGoDownloadUrl: string): Observable<any> {
-			return this.http.get(torrentGoDownloadUrl, {
-				withCredentials: true,
-				responseType: 'text',
-				headers: {
-					"Accept": "application/x-bittorrent"
-				}
-			});
+		return this.http.get(torrentGoDownloadUrl, {
+			withCredentials: true,
+			responseType: 'text',
+			headers: {
+				"Accept": "application/x-bittorrent"
+			}
+		});
 	}
-	
+
 	private getTorrentDetailsHTML(torrentUrl: string): Observable<any> {
 		return this.http.get(this.globals.SERVER_URL + '/api/torrent/description', {
 			params: {
@@ -71,54 +72,54 @@ export class TorrentService {
 	private getTorrentGoDownloadUrl(html): string {
 		if (!html) throw new ReferenceError('html is not defined');
 		if ((html instanceof $) === false) {
-		    html = html.replace(new RegExp('src=', 'g'), '_src=');
-		    html = $(html);
+			html = html.replace(new RegExp('src=', 'g'), '_src=');
+			html = $(html);
 		}
 		let goDownloadUrl = html.find('a.index').first().attr('href');
 		if (goDownloadUrl.indexOf('/') !== 0) {
-		    goDownloadUrl = '/' + goDownloadUrl;
+			goDownloadUrl = '/' + goDownloadUrl;
 		}
 		let downloadUrl = this.globals.ZAMUNDA_HOST + goDownloadUrl;
 		return this.createGetFileLink(downloadUrl);
 	}
 
 	private createGetFileLink(url: string): string {
-	    const encodedURL = encodeURIComponent(url);
-	    const link = this.globals.SERVER_URL + '/api/get/file?url=' + encodedURL;
-	    return link;
+		const encodedURL = encodeURIComponent(url);
+		const link = this.globals.SERVER_URL + '/api/get/file?url=' + encodedURL;
+		return link;
 	}
 
 	private extractSubtitlesUrls($description): string[] {
-	    if (!$description) throw new ReferenceError('$description is not defined');
-	    if (($description instanceof $) !== true) {
-	        $description = $($description);
-	    }
-	    if ($description.next().length === 0) {
-	        return []; // Optimization purpose.
-	    }
-	    const $subtitlesDiv = $description.next();
-	    const $allAnchors = $subtitlesDiv.find('a');
-	    let urls: string[] = [];
-	    $allAnchors.each(function(i, el) {
-	        const href = $(el).attr('href');
-	        if (!href) return true; // continue
-	        if (href.indexOf('http://subsunacs.net') !== -1 ||
-	            href.indexOf('http://subs.sab.bz') !== -1 ||
-	            href.indexOf('http://zamunda.net/getsubs.php/') !== -1) {
-	            urls.push(href);
-	        }
-	    });
-	    if ($subtitlesDiv.find('.othersubs a[target="_blank"]').length) {
-      	urls.push($subtitlesDiv.find('.othersubs a[target="_blank"]').eq(0).attr('href'));
-      }
-	    return urls;
+		if (!$description) throw new ReferenceError('$description is not defined');
+		if (($description instanceof $) !== true) {
+			$description = $($description);
+		}
+		if ($description.next().length === 0) {
+			return []; // Optimization purpose.
+		}
+		const $subtitlesDiv = $description.next();
+		const $allAnchors = $subtitlesDiv.find('a');
+		let urls: string[] = [];
+		$allAnchors.each(function (i, el) {
+			const href = $(el).attr('href');
+			if (!href) return true; // continue
+			if (href.indexOf('http://subsunacs.net') !== -1 ||
+				href.indexOf('http://subs.sab.bz') !== -1 ||
+				href.indexOf('http://zamunda.net/getsubs.php/') !== -1) {
+				urls.push(href);
+			}
+		});
+		if ($subtitlesDiv.find('.othersubs a[target="_blank"]').length) {
+			urls.push($subtitlesDiv.find('.othersubs a[target="_blank"]').eq(0).attr('href'));
+		}
+		return urls;
 	}
 
-	private getImages($description): string[] { 
+	private getImages($description): string[] {
 		let imageLinks: string[] = [];
 		let $allImages = $description.find('img');
 		let that = this;
-		$allImages.each(function(i, el) {
+		$allImages.each(function (i, el) {
 			let $el = $(el);
 			let src: string = $el.attr('_src');
 			if (!src) return true; // continue;
@@ -126,7 +127,7 @@ export class TorrentService {
 			if (src === 'http://zamunda.net/pic/fullr.png' ||
 				src === 'http://zamunda.net/pic/blankr.png' ||
 				src === 'http://zamunda.net/pic/halfr.png') {
-					return true; // continue;
+				return true; // continue;
 			}
 			if (src === 'http://zamunda.net/pic/playicon.png') {
 				return true; // continue;
@@ -142,7 +143,7 @@ export class TorrentService {
 			}
 			imageLinks.push(that.createGetFileLink(src));
 		});
-		
+
 		return imageLinks;
 	}
 
@@ -158,7 +159,7 @@ export class TorrentService {
 		const descriptionHTMLs = $description.html().split('##');
 		const externalLinks: any = {};
 		let that = this;
-		$.each(descriptionHTMLs, function(i: number, val) {
+		$.each(descriptionHTMLs, function (i: number, val) {
 			const imdbLink = that.extractLink(val, imdbRegExp);
 			if (imdbLink) {
 				externalLinks.imdb = imdbLink;
@@ -189,7 +190,7 @@ export class TorrentService {
 			}
 			if ($links.length > 1) {
 				let link: string;
-				$links.each(function(i, val) {
+				$links.each(function (i, val) {
 					const href = val.getAttribute('href');
 					if (href.indexOf('http://www.imdb.com/') > -1) {
 						link = href;
@@ -204,57 +205,57 @@ export class TorrentService {
 	}
 
 	private parseDescriptionTextsAndLinks($description) {
-    if (!$description) throw new ReferenceError('$description is not defined.');
-    if (!($description instanceof $)) {
-      $description = $($description);
-    }
-    const externalLinksResults = this.getExternalLinks($description);
-    const links = externalLinksResults.links;
-    const atIndexses = externalLinksResults.foundAt;
-    const descriptionTexts = $description.text().split('##');
-    for (let i = atIndexses.length - 1; i >= 0; i--) {
-      // Cut the text while we found the external link.
-      descriptionTexts.splice(atIndexses[i], 1);
-    }
-    return {
-      externalLinks: links,
-      descriptionTexts: descriptionTexts
-    };
+		if (!$description) throw new ReferenceError('$description is not defined.');
+		if (!($description instanceof $)) {
+			$description = $($description);
+		}
+		const externalLinksResults = this.getExternalLinks($description);
+		const links = externalLinksResults.links;
+		const atIndexses = externalLinksResults.foundAt;
+		const descriptionTexts = $description.text().split('##');
+		for (let i = atIndexses.length - 1; i >= 0; i--) {
+			// Cut the text while we found the external link.
+			descriptionTexts.splice(atIndexses[i], 1);
+		}
+		return {
+			externalLinks: links,
+			descriptionTexts: descriptionTexts
+		};
 	}
 
 	private parseTorrentDetailsHTML(html, url) {
-    if (!html) throw new ReferenceError('html is not defined.');
-    if (url.indexOf('decision(') > -1) {
-      return {error: 'Този торрент не се поддържа.'};
-    }
+		if (!html) throw new ReferenceError('html is not defined.');
+		if (url.indexOf('decision(') > -1) {
+			return { error: 'Този торрент не се поддържа.' };
+		}
 
-    let detailsObject: any = {};
+		let detailsObject: any = {};
 
-    html = html.replace(new RegExp('src=', 'g'), '_src=');
-    let $HTML = $(html);
-    if ($HTML.find('form[name="login"]').length > 0) {
-      return {error: 'Не може да достъпите този торент като гост.'};
-    }
-    let $description = $HTML.find('#description');
-    if (!$description.length) {
-    	return {error: "Услугата неможе да се изпълни."}
-    }
+		html = html.replace(new RegExp('src=', 'g'), '_src=');
+		let $HTML = $(html);
+		if ($HTML.find('form[name="login"]').length > 0) {
+			return { error: 'Не може да достъпите този торент като гост.' };
+		}
+		let $description = $HTML.find('#description');
+		if (!$description.length) {
+			return { error: "Услугата неможе да се изпълни." }
+		}
 
-    detailsObject.name = this.getTorrentName($HTML);
-    detailsObject.download = this.getTorrentGoDownloadUrl($HTML);
+		detailsObject.name = this.getTorrentName($HTML);
+		detailsObject.download = this.getTorrentGoDownloadUrl($HTML);
 
-    let images = this.getImages($description);
-    detailsObject.poster = images.shift();
-    detailsObject.images = images;
-    detailsObject.url = url;
-    detailsObject.subtitles = this.extractSubtitlesUrls($description);
-    const parsedTextsAndLinks = this.parseDescriptionTextsAndLinks($description);
-    detailsObject.description = parsedTextsAndLinks.descriptionTexts;
-    detailsObject.externalLinks = parsedTextsAndLinks.externalLinks;
+		let images = this.getImages($description);
+		detailsObject.poster = images.shift();
+		detailsObject.images = images;
+		detailsObject.url = url;
+		detailsObject.subtitles = this.extractSubtitlesUrls($description);
+		const parsedTextsAndLinks = this.parseDescriptionTextsAndLinks($description);
+		detailsObject.description = parsedTextsAndLinks.descriptionTexts;
+		detailsObject.externalLinks = parsedTextsAndLinks.externalLinks;
 
-    return detailsObject;
+		return detailsObject;
 	}
 
-  constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient) { }
 
 }

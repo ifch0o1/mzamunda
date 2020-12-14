@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -24,6 +24,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { TorrentDetailsComponent } from './torrent-details/torrent-details.component';
 
 import {MatPaginatorIntl} from '@angular/material';
+@Injectable()
 class MatPaginatorIntlCro extends MatPaginatorIntl {
   itemsPerPageLabel: string = "Показани";
   lastPageLabel: string = "Последна страница";

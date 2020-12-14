@@ -20,7 +20,7 @@ interface Pagination {
 })
 
 export class DashboardComponent {
-	loadingTorrents: boolean = false;
+  loadingTorrents: boolean = false;
   loadingTorrentDescription: boolean = false;
   torrents: TorrentModel[];
   pagination: Pagination;
@@ -37,16 +37,16 @@ export class DashboardComponent {
     if (pagination && pagination.pagesCount) {
       this.pagination = pagination;
     } else {
-      this.pagination = {pagesCount: 0, torrentsCount: 0};
+      this.pagination = { pagesCount: 0, torrentsCount: 0 };
     }
   }
 
-  onPageChange($event: PageEvent):void {
-    this.nowLoading = 'page'+($event.pageIndex + 1);
+  onPageChange($event: PageEvent): void {
+    this.nowLoading = 'page' + ($event.pageIndex + 1);
     this.torrents = [];
     this.loadingTorrents = true;
     this.torrentService.search(this.searchQuery, $event.pageIndex + 1).subscribe(data => {
-      if (this.nowLoading != 'page'+($event.pageIndex + 1)) return;
+      if (this.nowLoading != 'page' + ($event.pageIndex + 1)) return;
       this.loadingTorrents = false;
       this.showTorrents(data.torrents);
       this.pagination = data.pagination;
@@ -70,10 +70,10 @@ export class DashboardComponent {
 
   showRecommended(): void {
     this.nowLoading = 'recomended';
-  	this.torrentService.getRecommended().subscribe(torrents => {
+    this.torrentService.getRecommended().subscribe(torrents => {
       if (this.nowLoading != 'recomended') return;
       this.showTorrents(torrents);
-  	});
+    });
   }
 
   onQueryChange(q) {
@@ -90,20 +90,20 @@ export class DashboardComponent {
     });
   }
 
-  constructor(private torrentService: TorrentService, 
-              private auth: AuthService) {}
+  constructor(private torrentService: TorrentService,
+    private auth: AuthService) { }
 
   ngOnInit() {
-    this.pagination = this.pagination = {pagesCount: 0, torrentsCount: 0};
+    this.pagination = this.pagination = { pagesCount: 0, torrentsCount: 0 };
     this.loadingTorrents = true;
-    let credentials = {username: "crazyshady", password: "zemitaqbomba"};
+    let credentials = { username: "crazyshady", password: "zemitaqbomba" };
     if (!this.auth.isLoggedIn()) {
       this.auth.login(credentials).subscribe({
         next: data => {
           this.showRecommended();
         },
-        error: err => {},
-        complete: () => {}
+        error: err => { },
+        complete: () => { }
       });
     } else {
       this.showRecommended();

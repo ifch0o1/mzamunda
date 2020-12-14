@@ -6,7 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { globals } from './globals';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 
 export class AuthService {
@@ -14,27 +14,27 @@ export class AuthService {
 	private loginUrl = this.globals.SERVER_URL + "/api/auth/login";
 
 	private increaseDate(date, months): Date {
-	    let increasedDate = date.setMonth(date.getMonth() + months);
-	    return new Date(increasedDate);
+		let increasedDate = date.setMonth(date.getMonth() + months);
+		return new Date(increasedDate);
 	}
-	
+
 	/**
 	 * Login to zamunda.net
 	 */
-	login(credentials: {username: string, password: string}): Observable<boolean> {
+	login(credentials: { username: string, password: string }): Observable<boolean> {
 		return new Observable(observer => {
 			// Login is doing by GET request because
 			// POST requests ignores credentails - and didn't save cookies.
-			let loginGETurl = this.loginUrl 
-				+ '?username=' + credentials.username 
+			let loginGETurl = this.loginUrl
+				+ '?username=' + credentials.username
 				+ '&password=' + credentials.password;
-			this.http.get(loginGETurl, {withCredentials:true}).subscribe(data => {
+			this.http.get(loginGETurl, { withCredentials: true }).subscribe(data => {
 				observer.next(true);
 				observer.complete();
 			});
 		});
 	}
-	
+
 	/**
 	 * Check login status
 	 * 
@@ -42,18 +42,18 @@ export class AuthService {
 	 */
 	isLoggedIn(): boolean {
 		if (!!this.cookieService.get('uid')) {
-	    return true;
+			return true;
 		} else {
-	    return false;
+			return false;
 		}
 	}
 
 	logout() {
-    this.cookieService.deleteAll();
+		this.cookieService.deleteAll();
 	}
 
-  constructor(
-  	private cookieService: CookieService, 
-  	private http: HttpClient
-  	) { }
+	constructor(
+		private cookieService: CookieService,
+		private http: HttpClient
+	) { }
 }
