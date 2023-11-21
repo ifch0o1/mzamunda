@@ -16,7 +16,7 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.0",
     "request": "^2.65.0",
-    "serve-favicon": "~2.3.0",
+    "serve-favicon": "~2.5.0",
     "winston": "^1.0.2"
   }
 }
