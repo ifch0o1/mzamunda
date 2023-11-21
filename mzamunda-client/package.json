@@ -15,7 +15,7 @@
     "@angular/cdk": "^7.1.0",
     "@angular/common": "~11.1.0-next.2",
     "@angular/compiler": "~11.1.0-next.2",
-    "@angular/core": "~11.1.0-next.2",
+    "@angular/core": "~11.1.0-next.3",
     "@angular/flex-layout": "github:angular/flex-layout-builds",
     "@angular/forms": "~11.1.0-next.2",
     "@angular/material": "^7.1.0",
